@@ -1,0 +1,4 @@
+openai>=1.2.0
+yt-dlp>=2023.07.06
+python-dotenv
+google-generativeai

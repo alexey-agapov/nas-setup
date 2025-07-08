@@ -1,0 +1,30 @@
+# Python-related
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# yt-dlp temp files
+*.part
+*.info.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# OS/mounted data
+mnt/
