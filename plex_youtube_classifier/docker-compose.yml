@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  telegram-bot:
+    build: .
+    container_name: telegram-bot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DOWNLOAD_DIR: /downloads
+      PLEX_LIBRARY_ROOT: /plex
+    volumes:
+      - /mnt/d/Downloads:/downloads
+      - /mnt/d/Plex Library:/plex
+    command: python bot_main.py
