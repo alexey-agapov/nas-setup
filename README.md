@@ -1,50 +1,27 @@
-# NAS Setup
 
-This repository documents the setup of my Raspberry Pi NAS running DietPi, including Plex media server, OpenVPN for secure connectivity, Samba file sharing, HFS+ support for external drives, and an automated script for downloading and classifying YouTube videos.
+# nas_drop_bot (scaffold)
 
-## 📦 Project Structure
+A minimal Telegram bot running in Docker (WSL2 backend). It mounts the **entire D: drive from Windows** into the container at `/mnt/d`, so both:
 
-nas-setup/
-├── README.md
-├── plex_youtube_classifier/
-│   ├── plex_youtube_classifier.py
-│   └── requirements.txt
-├── vpn/
-│   ├── ovpn-files/
-│   └── setup.md
-├── plex/
-│   ├── library-structure.md
-│   └── metadata-guides.md
-└── scripts/
-    └── maintenance.sh
+- `/mnt/d/Downloads/`
+- `/mnt/d/Plex Library/`
 
-## 📺 Plex
-- Installed via DietPi’s dietpi-software tool.
-- Libraries organized into Movies, TV Shows, YouTube et al, Music Videos, Operas & Concerts.
-- Metadata handled via naming conventions and optional local NFOs.
+are on **the same filesystem**, enabling instant atomic renames between those folders.
 
-## 🔗 OpenVPN
-- Configured with .ovpn files (excluded from version control).
-- Used to securely route NAS traffic through a VPN provider.
+## Quick start
 
-## 🗄️ Samba Server
-- Shares media directories on the local network for easy access from other devices.
+1. Copy `.env.example` to `.env` and set `TELEGRAM_BOT_TOKEN`.
+2. From the project root, run (on the host with Docker Desktop + WSL2):
+   ```bash
+   docker compose up --build -d
+   ```
+3. The bot will respond **OK** to any message it receives.
 
-## 💾 HFS+ Tools
-- Installed `hfsprogs` to mount external HFS+ drives with read-write access.
-- Drives checked with `fsck.hfsplus` before mounting.
+## Dev Containers
 
-## 🎥 YouTube Classifier Script
-- The script in `plex_youtube_classifier/` downloads videos, embeds metadata, classifies them with OpenAI, and moves them to the appropriate Plex library folder.
-- Supports automatic naming and library placement.
+Open this folder in VS Code and choose **Dev Containers: Reopen in Container**.
+This uses the `docker-compose.dev.yml` override to mount your source for hot-reload.
 
-## 🚀 Next Steps
-- Automate Plex library scans after downloads.
-- Add systemd services for automated maintenance.
-- Integrate a Telegram bot for remote control.
+## Add more services
 
-## ⚠️ Security Note
-- VPN credentials and .ovpn files are **not** committed to this repository.
-
-## 📄 License
-This repository documents a personal setup. Use at your own risk.
+In `docker-compose.yml`, see the comment `# (add more services here later)` — append other containers to the same compose project.
